@@ -1,0 +1,23 @@
+@host=http://localhost:{{PORT}}
+
+### See who's in the room now
+GET /peek
+Accept: application/json
+
+### Start receiving facts (first client)
+# @keepStreaming
+SSE /join
+    ?name=tuan
+
+### Start receiving facts (second client)
+# @keepStreaming
+SSE /join
+    ?name=vi
+
+### Share a fact to others
+POST /fact
+X-Member-Id: tuan
+Content-Type: application/json
+{
+    "fact": "The Sun sets in the West."
+}
